@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello world </title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('index')}}">Home</a></li>
-            <li><a href="{{ url_for('about')}}">About</a></li>
-            <li><a href="{{ url_for('contact_us')}}">Contact Us</a></li>
-            <li><a href="{{ url_for('careers')}}">Careers</a></li>
-        </ul>
-    </nav>
+<!--
+     Allowing us to write the code one time and import extra code to be used in the base html file from external
+    page files. Preventing repeating the code over and over again. Also allowing us to make a change in one 
+    place and not every single place the change occurs.
+-->
 
-        <h1>Careers Page</h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}d
+    <h1>Careers Page</h1>
+{% endblock %}

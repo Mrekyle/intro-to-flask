@@ -1,23 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello world </title>
-</head>
-<body>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('index')}}">Home</a></li>
-                <!-- Using the routing methods we have to call the function from the python script to allow us to run 
-                that code calling the server to send the new page to be displayed -->
-                <li><a href="{{ url_for('about')}}">About</a></li>
-                <li><a href="{{ url_for('contact_us')}}">Contact Us</a></li>
-                <li><a href="{{ url_for('careers')}}">Careers</a></li>
-            </ul>
-        </nav>
-
-        <h1>Home Page</h1>
-</body>
-</html>
+{% extends "base.html" %} 
+<!-- This renders the content from this page onto the base.hmtl file -->
+<!-- Referring to the content block called "content" which then inserts the content inside of the block 
+on this file into the base.html file. -->
+{% block content %} 
+    <h1>Home Page</h1>
+{% endblock %}

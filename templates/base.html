@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Flask</title>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <!--
+                The double curly brackets are an expression. Which allows us to call a function from an external 
+                python file. This then enables us to do the routing of the pages externally.
+            -->
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact_us') }}">Contact Us</a></li>
+            <li><a href="{{ url_for('careers') }}">Careers</a></li>
+        </ul>
+    </nav>
+
+    {% block content %}
+    <!-- Allows us to insert content directly into a base html page to prevent repeating code. -->
+    {% endblock %}
+
+</body>
+</html>
