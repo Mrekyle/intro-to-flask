@@ -1,9 +1,26 @@
 import os
 import json
-from flask import Flask, render_template # Allows us to render an external html file - Flask functions
+from flask import Flask, render_template, request, flash
+if os.path.exists("env.py"): # Checking if the env.py path exists then import it.
+    import env
 
+"""
+Flask - Allows u to use python to build the front end of a website using the python language.
+By using other parts and frameworks alongside we are able to build complex websites. Also allowing us to build a 
+simple server for testing purposes
+
+render_template = Allows us to render entire pages by using templates. Allowing us to write minimal repeated
+code. And search for and retrieve data from other files to populate the web page
+
+request - Handles all requests made by the user and the application. Such as sending contact from emails. Posting 
+data to a database etc...
+
+flash - flashes a message or a piece of data to the user. It is a non permanent message that can be shown to the user
+
+"""
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY")
 
 """
 The below lines of code are the app routing of the html pages. 
@@ -23,7 +40,8 @@ def about():
     data = []
     with open("data/company.json", "r") as json_data: # Opening the company file in read only mode
         data = json.load(json_data) # assigning the data in the document to data    
-    return render_template("about.html", page_title="About", company=data) # passing the data variable to the page
+    return render_template(
+        "about.html", page_title="About", company=data) # passing the data variable to the page
     # By adding extra arguments/variables to the render_template function we can input more logic into the html 
     # directly from the server side of the application. Again reducing repeated code though out the application
 
@@ -39,9 +57,17 @@ def about_member(member_name):
 
 #You can change the route name to what ever you want ie
 # @app.route("/bananana") along with the contact_us function would return the same thing
-@app.route("/contact")
+@app.route("/contact", methods =["GET", "POST"])
 def contact_us():
-    return render_template("contact-us.html", page_title="Contact Us", list_of_numbers=[1, 2, 3])
+    if request.method == "POST":
+        #print("Hello, is anyone there? Can you hear me?")  - Ensuring the post method is working by logging to the console.
+        print(request.form.get("name"))
+        print(request.form["email"]) 
+        flash("Thanks {}, we have received your message!".format( # Flashes a message that is defined to the user on the page
+            request.form.get("name"))) # getting the name key to populate the flash
+        # Works the same both ways. But target different ways of retrieving the data.
+    return render_template(
+        "contact-us.html", page_title="Contact Us", list_of_numbers=[1, 2, 3])
 
 @app.route("/careers")
 def careers():

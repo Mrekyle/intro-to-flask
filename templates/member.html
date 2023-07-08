@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block content %}
+{% block blog_post %}
 
     <div class="row">
         <div class="col-md-5">
-            <img src="{{ member.image_source }}" alt="Profile image for {{ member.name }}">
+            <img height="300px" width="300px" src="{{ member.image_source }}" alt="Profile image for {{ member.name }}">
             <h2 class="col-md-7">{{ member.name }}</h2>
         </div>
     </div>
