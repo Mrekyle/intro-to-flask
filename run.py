@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, render_template # Allows us to render an external html file - Flask functions
 
 
@@ -19,18 +20,32 @@ def index():
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    data = []
+    with open("data/company.json", "r") as json_data: # Opening the company file in read only mode
+        data = json.load(json_data) # assigning the data in the document to data    
+    return render_template("about.html", page_title="About", company=data) # passing the data variable to the page
+    # By adding extra arguments/variables to the render_template function we can input more logic into the html 
+    # directly from the server side of the application. Again reducing repeated code though out the application
+
+@app.route("/about/<member_name>") # Creates a new page for the member that has been selected by the user
+def about_member(member_name):
+    member = {}
+    with open("data/company.json", "r") as json_data: # Opening the Json in read only to read the specific data requested by the user
+        data = json.load(json_data)
+        for obj in data:
+            if obj["url"] == member_name: # checks if the members name and url match. The displays the appropriate information
+                member = obj
+    return render_template("member.html", member=member) 
 
 #You can change the route name to what ever you want ie
 # @app.route("/bananana") along with the contact_us function would return the same thing
 @app.route("/contact")
 def contact_us():
-    return render_template("contact-us.html")
+    return render_template("contact-us.html", page_title="Contact Us", list_of_numbers=[1, 2, 3])
 
 @app.route("/careers")
 def careers():
-    return render_template("careers.html")
-
+    return render_template("careers.html", page_title="Careers")
 """
 Running a basic server using the python/flask frameworks
 """
